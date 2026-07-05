@@ -96,13 +96,15 @@ Inspired by Apple's iPhone calculator app design:
 
 ```text
 calculator/
+├── assets
+│   └── images
+│       ├── Galaxy-S22+-127.0.0.1.png
+│       ├── iPhone-13-PRO-127.0.0.1.png
+│       └── Macbook-Air-127.0.0.1.png
 ├── index.html
-├── style.css
+├── README.md
 ├── script.js
-└── screenshots/
-    ├── desktop-view.png
-    ├── mobile-view.png
-    └── calculator-operation.png
+└── style.css
 ```
 
 ---
