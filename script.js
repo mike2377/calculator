@@ -87,6 +87,20 @@ function handleOperator (nextOperator) {
   updateOperationDisplay()
 }
 
+// active operator
+function highlightOperator (op) {
+    operatorButtons.forEach(btn => btn.classList.remove('active'));
+    operatorButtons.forEach(btn => {
+        if (btn.dataset.value === op) {
+            btn.classList.add('active');
+        }
+    });
+}
+
+function clearHighlight() {
+    operatorButtons.forEach(btn => btn.classList.remove('active'));
+}
+
 // calculate
 function calculate (a, b, op) {
   let result = 0
@@ -119,3 +133,69 @@ function handleEquals () {
   updateOperationDisplay()
 }
 
+// handle AC
+function handleClear () {
+    currentInput = '0'
+    previousInput = ''
+    operation = null
+    shouldResetScreen = false
+    clearHighlight()
+    updateScreen()
+    updateOperationDisplay()
+}
+
+// handle +/-
+function handleSign () {
+    if (currentInput === '0') return
+    if (currentInput.startsWith('-')) {
+        currentInput = currentInput.slice(1)
+    } else {
+        currentInput = '-' + currentInput
+    }
+    updateScreen();
+}
+
+// handle %
+function handlePercent () {
+    const value = parseFloat(currentInput)
+    currentInput = String(value / 100)
+    updateScreen()
+}
+
+// on-click event
+buttons.forEach(button => {
+  button.addEventListener('click', () => {
+    const action = button.dataset.action;
+    const value = button.dataset.value;
+
+    if (!action) {
+      inputNumber(value);
+      clearHighlight();
+    } else {
+      switch (action) {
+        case 'decimal':
+          inputDecimal();
+          break;
+        case 'operator':
+          handleOperator(value);
+          break;
+        case 'equals':
+          handleEquals();
+          break;
+        case 'clear':
+          handleClear();
+          break;
+        case 'sign':
+          handleSign();
+          break;
+        case 'percent':
+          handlePercent();
+          break;
+      }
+    }
+  });
+});
+
+// initial display
+updateScreen();
+updateOperationDisplay();
