@@ -134,7 +134,7 @@ function handleEquals () {
 }
 
 // handle AC
-function handleClear() {
+function handleClear () {
   currentInput = '0'
   previousInput = ''
   operation = null
@@ -145,7 +145,7 @@ function handleClear() {
 }
 
 // handle +/-
-function handleSign() {
+function handleSign () {
   if (currentInput === '0') return
   if (currentInput.startsWith('-')) {
     currentInput = currentInput.slice(1)
@@ -156,7 +156,7 @@ function handleSign() {
 }
 
 // handle %
-function handlePercent() {
+function handlePercent () {
   const value = parseFloat(currentInput)
   currentInput = String(value / 100)
   updateScreen()
@@ -174,22 +174,22 @@ buttons.forEach(button => {
     } else {
       switch (action) {
         case 'decimal':
-          inputDecimal();
+          inputDecimal()
           break
         case 'operator':
-          handleOperator(value);
+          handleOperator(value)
           break
         case 'equals':
-          handleEquals();
+          handleEquals()
           break
         case 'clear':
-          handleClear();
+          handleClear()
           break
         case 'sign':
-          handleSign();
+          handleSign()
           break
         case 'percent':
-          handlePercent();
+          handlePercent()
           break
       }
     }
