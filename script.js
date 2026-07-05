@@ -15,7 +15,7 @@ function updateScreen () {
   let displayValue = currentInput
 
   if (!isNaN(parseFloat(displayValue))) {
-    let parts = displayValue.split('.')
+    const parts = displayValue.split('.')
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     displayValue = parts.join('.')
   }
@@ -46,7 +46,7 @@ function inputNumber (number) {
     currentInput = number
     shouldResetScreen = false
   } else {
-    if (currentInput.replace(/[^0-9]/g, "").length >= 9) return
+    if (currentInput.replace(/[^0-9]/g, '').length >= 9) return
     currentInput += number
   }
   updateScreen()
@@ -89,25 +89,25 @@ function handleOperator (nextOperator) {
 
 // active operator
 function highlightOperator (op) {
-    operatorButtons.forEach(btn => btn.classList.remove('active'));
-    operatorButtons.forEach(btn => {
-        if (btn.dataset.value === op) {
-            btn.classList.add('active');
-        }
-    });
+  operatorButtons.forEach(btn => btn.classList.remove('active'))
+  operatorButtons.forEach(btn => {
+    if (btn.dataset.value === op) {
+      btn.classList.add('active')
+    }
+  })
 }
 
-function clearHighlight() {
-    operatorButtons.forEach(btn => btn.classList.remove('active'));
+function clearHighlight () {
+  operatorButtons.forEach(btn => btn.classList.remove('active'))
 }
 
 // calculate
 function calculate (a, b, op) {
   let result = 0
   switch (op) {
-    case '+': result = a + b; break;
-    case '-': result = a - b; break;
-    case '×': result = a * b; break;
+    case '+': result = a + b; break
+    case '-': result = a - b; break
+    case '×': result = a * b; break
     case '÷':
       if (b === 0) return 'Error'
       result = a / b
@@ -134,68 +134,68 @@ function handleEquals () {
 }
 
 // handle AC
-function handleClear () {
-    currentInput = '0'
-    previousInput = ''
-    operation = null
-    shouldResetScreen = false
-    clearHighlight()
-    updateScreen()
-    updateOperationDisplay()
+function handleClear() {
+  currentInput = '0'
+  previousInput = ''
+  operation = null
+  shouldResetScreen = false
+  clearHighlight()
+  updateScreen()
+  updateOperationDisplay()
 }
 
 // handle +/-
-function handleSign () {
-    if (currentInput === '0') return
-    if (currentInput.startsWith('-')) {
-        currentInput = currentInput.slice(1)
-    } else {
-        currentInput = '-' + currentInput
-    }
-    updateScreen();
+function handleSign() {
+  if (currentInput === '0') return
+  if (currentInput.startsWith('-')) {
+    currentInput = currentInput.slice(1)
+  } else {
+    currentInput = '-' + currentInput
+  }
+  updateScreen()
 }
 
 // handle %
-function handlePercent () {
-    const value = parseFloat(currentInput)
-    currentInput = String(value / 100)
-    updateScreen()
+function handlePercent() {
+  const value = parseFloat(currentInput)
+  currentInput = String(value / 100)
+  updateScreen()
 }
 
 // on-click event
 buttons.forEach(button => {
   button.addEventListener('click', () => {
-    const action = button.dataset.action;
-    const value = button.dataset.value;
+    const action = button.dataset.action
+    const value = button.dataset.value
 
     if (!action) {
-      inputNumber(value);
-      clearHighlight();
+      inputNumber(value)
+      clearHighlight()
     } else {
       switch (action) {
         case 'decimal':
           inputDecimal();
-          break;
+          break
         case 'operator':
           handleOperator(value);
-          break;
+          break
         case 'equals':
           handleEquals();
-          break;
+          break
         case 'clear':
           handleClear();
-          break;
+          break
         case 'sign':
           handleSign();
-          break;
+          break
         case 'percent':
           handlePercent();
-          break;
+          break
       }
     }
-  });
-});
+  })
+})
 
 // initial display
-updateScreen();
-updateOperationDisplay();
+updateScreen()
+updateOperationDisplay()
