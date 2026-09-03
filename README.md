@@ -1,4 +1,4 @@
-# 📱 iPhone Calculator — Web Clone
+# 📱 iPhone Calculator - Web Clone
 
 A recreation of the iPhone calculator, built from scratch using HTML5, CSS3, and Vanilla JavaScript.  
 This project replicates Apple calculator design and a polished dark theme.
@@ -39,14 +39,6 @@ This project aims to:
 - CSS3
 - JavaScript (ES6)
 
-### CSS Techniques Used
-
-- CSS Grid (for button layout)
-- Flexbox (for alignment)
-- CSS custom properties (for colors)
-- Media queries
-- Transitions and animations
-
 ### Other Tools
 
 - Git & GitHub
@@ -60,8 +52,6 @@ This project aims to:
 - **Operation Display**: Shows pending operations (e.g., "5 +")
 - **Full Button Set**: AC, +/-, %, ÷, ×, −, +, =, numbers 0-9, decimal point
 - **Responsive Design**: Adapts to different screen sizes
-- **Keyboard Support**: Numeric keypad and Enter key support
-- **Operator Highlighting**: Selected operator turns white with orange text
 
 ---
 
@@ -125,17 +115,15 @@ Open the project in your browser:
 open index.html
 ```
 
-No build tools, no dependencies — just open and go.
-
 ---
 
 ## 🧠 Challenges Faced
 
-- **Number Formatting**: Implementing thousands separators without breaking decimal points
-- **Font Scaling**: Dynamically adjusting font size based on number length
-- **Operation Chaining**: Handling multiple operations in sequence (e.g., "5 + 3 - 2")
-- **Operator Highlighting**: Maintaining active state while typing numbers
-- **State Management**: Tracking current input, previous input, and operation
+- **Number Formatting**: I needed thousands separators (1234567 → 1,234,567) but whitout touching the decimal point. I split the nmber at `.`, apply the regex `/\B(?=(\d{3})+(?!\d))/g` only on the integer part, then join both parts back.
+- **Three-tier font scaling**: The display must shrink as numbers grow, like the real iPhone calculator. I use three breakpoints based on character count: 80px (≤7 chars), 65px (8-9 chars), 50px (10+ chars). Checked on every screen update.
+- **Operator highlighting state**: When you tap an operator, it turns white/orange. When you type a new number, the highlight must disappear. I toggle an `.active` class via `highlightOperator()` and call `clearHighlight()` in the button click handler after `inputNumber()` so chaining works correctly.
+- **Operation chaining**: Pressing `5 + 3 -` computes `5 + 3 = 8` first, then stores `-`. I track `previousInput`, `currentInput`, and `operation` separately, and calculate the intermediate result inside `handleOperator()` before storing the new operator.
+- **Floating point precision**: `0.1 + 0.2 = 0.30000000000000004` in JS. I round every result to 10 decimals with `Math.round(result * 1e10) / 1e10`.
 
 ---
 
@@ -143,21 +131,8 @@ No build tools, no dependencies — just open and go.
 
 - How to build a complete calculator with proper operation chaining
 - Implementing dynamic font scaling for better UX
-- Managing complex state in JavaScript
-- Formatting numbers with thousands separators
 - Handling edge cases (division by zero, multiple decimals)
 - CSS Grid for perfect button layout
-
----
-
-## 🚀 Future Improvements
-
-- Add keyboard support for all buttons (operators, Enter, Escape)
-- Add history/tape functionality to see previous calculations
-- Add dark/light theme toggle
-- Add sound effects for button presses
-- Implement scientific calculator mode
-- Add animation effects for button presses
 
 ---
 
