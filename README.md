@@ -119,7 +119,7 @@ open index.html
 
 ## 🧠 Challenges Faced
 
-- **Number Formatting**: I needed thousands separators (1234567 → 1,234,567) but whitout touching the decimal point. I split the nmber at `.`, apply the regex `/\B(?=(\d{3})+(?!\d))/g` only on the integer part, then join both parts back.
+- **Number Formatting**: I needed thousands separators (1234567 → 1,234,567) but whitout touching the decimal point. I split the nmber at `.`, apply the regular expression `/\B(?=(\d{3})+(?!\d))/g` only on the integer part, then join both parts back.
 - **Three-tier font scaling**: The display must shrink as numbers grow, like the real iPhone calculator. I use three breakpoints based on character count: 80px (≤7 chars), 65px (8-9 chars), 50px (10+ chars). Checked on every screen update.
 - **Operator highlighting state**: When you tap an operator, it turns white/orange. When you type a new number, the highlight must disappear. I toggle an `.active` class via `highlightOperator()` and call `clearHighlight()` in the button click handler after `inputNumber()` so chaining works correctly.
 - **Operation chaining**: Pressing `5 + 3 -` computes `5 + 3 = 8` first, then stores `-`. I track `previousInput`, `currentInput`, and `operation` separately, and calculate the intermediate result inside `handleOperator()` before storing the new operator.
